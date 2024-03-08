@@ -28,5 +28,6 @@ shared_actors AS (
 )
 SELECT sc.title
 FROM shared_categories AS sc
-JOIN shared_actors AS sa ON sc.title = sa.title;
+JOIN shared_actors AS sa ON sc.title = sa.title
+ORDER BY sc.title;
 
