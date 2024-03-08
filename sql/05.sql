@@ -6,3 +6,12 @@
  * HINT:
  * This can be solved with a self join on the film_actor table.
  */
+SELECT f2.title
+FROM film AS f1
+JOIN film_actor AS fa1 ON f1.film_id = fa1.film_id
+JOIN actor AS a ON fa1.actor_id = a.actor_id
+JOIN film_actor AS fa2 ON a.actor_id = fa2.actor_id
+JOIN film AS f2 ON fa2.film_id = f2.film_id
+WHERE f1.title = 'AMERICAN CIRCUS'
+ORDER BY f2.title;
+
