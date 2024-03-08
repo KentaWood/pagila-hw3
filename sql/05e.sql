@@ -25,6 +25,6 @@ JOIN film_category AS fc2 ON fc1.category_id = fc2.category_id
 JOIN film AS fc ON fc2.film_id = fc.film_id
 WHERE fc.title = 'AMERICAN CIRCUS'
 GROUP BY f.title
-HAVING COUNT(DISTINCT fc1.category_id) >= 2
+HAVING COUNT(DISTINCT fc1.category_id) = 2
 ORDER BY f.title;
 -- AMERICAN CIRCUS isn;t included in the result list
