@@ -13,6 +13,6 @@ JOIN film_actor AS fa2 ON a.actor_id = fa2.actor_id
 JOIN film AS f2 ON fa2.film_id = f2.film_id
 WHERE f1.title IN ('ACADEMY DINOSAUR', 'AGENT TRUMAN', 'AMERICAN CIRCUS')
 GROUP BY f2.title
-HAVING COUNT(DISTINCT a.actor_id) >= 3
+HAVING COUNT(a.actor_id) >= 3
 ORDER BY f2.title;
 
