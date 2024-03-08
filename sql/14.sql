@@ -14,7 +14,10 @@ WITH CategoryFilmRentals AS (
         f.film_id,
         f.title,
         COUNT(r.rental_id) AS rental_count,
-        ROW_NUMBER() OVER (PARTITION BY c.category_id ORDER BY COUNT(r.rental_id) DESC, f.film_id) AS rental_rank
+        ROW_NUMBER() OVER (
+            PARTITION BY c.category_id
+            ORDER BY COUNT(r.rental_id) DESC, f.title DESC
+        ) AS rental_rank
     FROM
         category c
         JOIN film_category fc ON c.category_id = fc.category_id
@@ -33,4 +36,4 @@ FROM
 WHERE
     rental_rank <= 5
 ORDER BY
-    name, "total rentals" DESC,title;
+    name, "total rentals" DESC, title ASC;

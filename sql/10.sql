@@ -9,3 +9,30 @@
  * HINT:
  * I used the `ntile` window function to compute the percentile.
  */
+WITH customer_spending AS (
+    SELECT
+        customer_id,
+        SUM(amount) AS total_payment,
+        NTILE(100) OVER (ORDER BY SUM(amount) ASC) AS percentile
+    FROM
+        payment
+    GROUP BY
+        customer_id
+)
+SELECT
+    c.customer_id,
+    CONCAT(c.first_name, ' ', c.last_name) AS name,
+    SUM(p.amount) AS total_payment,
+    cs.percentile
+FROM
+    customer c
+JOIN
+    payment p ON c.customer_id = p.customer_id
+JOIN
+    customer_spending cs ON c.customer_id = cs.customer_id
+WHERE
+    cs.percentile >= 90
+GROUP BY
+    c.customer_id, name, cs.percentile
+ORDER BY
+    name;
